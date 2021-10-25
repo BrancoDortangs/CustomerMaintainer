@@ -1,0 +1,249 @@
+﻿<Window x:Class="CustomerMaintainer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:CustomerMaintainer"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        xml:lang="nl-NL"
+        x:Name="Window" Width="800" WindowStartupLocation="CenterScreen" Height="600">
+    <Window.Resources>
+        <local:DifferenceColorConverter x:Key="DifferenceColorConverter" />
+    </Window.Resources>
+    <Grid>
+        <TabControl SelectionChanged="TabSelected">
+            <TabItem x:Name="InputTab" Header="Invoeren">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="100*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="100*" />
+                    </Grid.RowDefinitions>
+                    <Label Content="maandag" Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center"/>
+                    <Label Content="dinsdag" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center"/>
+                    <Label Content="woensdag" Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center"/>
+                    <Label Content="donderdag" Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center"/>
+                    <Label Content="vrijdag" Grid.Row="5" Grid.Column="0" VerticalContentAlignment="Center"/>
+
+                    <Label Content="Vorige week" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14"/>
+
+                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label x:Name="MondayLastWeekLabel" VerticalContentAlignment="Center"></Label>
+                        <xctk:IntegerUpDown x:Name="MondayLastWeekIntegerUpDown" Minimum="{Binding MinimumCustomerAmount}" Maximum="{Binding MaximumCustomerAmount}" Margin="0,5,20,5" ValueChanged="AmountOfCustomersChanged"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label x:Name="TuesdayLastWeekLabel" VerticalContentAlignment="Center"></Label>
+                        <xctk:IntegerUpDown x:Name="TuesdayLastWeekIntegerUpDown" Grid.Row="2" Grid.Column="1" Minimum="{Binding MinimumCustomerAmount}" Maximum="{Binding MaximumCustomerAmount}" Margin="0,5,20,5" ValueChanged="AmountOfCustomersChanged"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label x:Name="WednesdayLastWeekLabel" VerticalContentAlignment="Center"></Label>
+                        <xctk:IntegerUpDown x:Name="WednesdayLastWeekIntegerUpDown" Grid.Row="3" Grid.Column="1" Minimum="{Binding MinimumCustomerAmount}" Maximum="{Binding MaximumCustomerAmount}" Margin="0,5,20,5" ValueChanged="AmountOfCustomersChanged"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label x:Name="ThursdayLastWeekLabel" VerticalContentAlignment="Center"></Label>
+                        <xctk:IntegerUpDown x:Name="ThursdayLastWeekIntegerUpDown" Grid.Row="4" Grid.Column="1" Minimum="{Binding MinimumCustomerAmount}" Maximum="{Binding MaximumCustomerAmount}" Margin="0,5,20,5" ValueChanged="AmountOfCustomersChanged"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label x:Name="FridayLastWeekLabel" VerticalContentAlignment="Center"></Label>
+                        <xctk:IntegerUpDown x:Name="FridayLastWeekIntegerUpDown" Grid.Row="5" Grid.Column="1" Minimum="{Binding MinimumCustomerAmount}" Maximum="{Binding MaximumCustomerAmount}" Margin="0,5,20,5" ValueChanged="AmountOfCustomersChanged"/>
+                    </StackPanel>
+
+                    <Label Content="Deze week" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14"/>
+
+                    <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label x:Name="MondayThisWeekLabel" VerticalContentAlignment="Center"></Label>
+                        <xctk:IntegerUpDown x:Name="MondayThisWeekIntegerUpDown" Grid.Row="1" Grid.Column="2" Minimum="{Binding MinimumCustomerAmount}" Maximum="{Binding MaximumCustomerAmount}" Margin="0,5,20,5" ValueChanged="AmountOfCustomersChanged"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label x:Name="TuesdayThisWeekLabel" VerticalContentAlignment="Center"></Label>
+                        <xctk:IntegerUpDown x:Name="TuesdayThisWeekIntegerUpDown" Grid.Row="2" Grid.Column="2" Minimum="{Binding MinimumCustomerAmount}" Maximum="{Binding MaximumCustomerAmount}" Margin="0,5,20,5" ValueChanged="AmountOfCustomersChanged"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label x:Name="WednesdayThisWeekLabel" VerticalContentAlignment="Center"></Label>
+                        <xctk:IntegerUpDown x:Name="WednesdayThisWeekIntegerUpDown" Grid.Row="3" Grid.Column="2" Minimum="{Binding MinimumCustomerAmount}" Maximum="{Binding MaximumCustomerAmount}" Margin="0,5,20,5" ValueChanged="AmountOfCustomersChanged"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="4" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label x:Name="ThursdayThisWeekLabel" VerticalContentAlignment="Center"></Label>
+                        <xctk:IntegerUpDown x:Name="ThursdayThisWeekIntegerUpDown" Grid.Row="4" Grid.Column="2" Minimum="{Binding MinimumCustomerAmount}" Maximum="{Binding MaximumCustomerAmount}" Margin="0,5,20,5" ValueChanged="AmountOfCustomersChanged"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="5" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label x:Name="FridayThisWeekLabel" VerticalContentAlignment="Center"></Label>
+                        <xctk:IntegerUpDown x:Name="FridayThisWeekIntegerUpDown" Grid.Row="5" Grid.Column="2" Minimum="{Binding MinimumCustomerAmount}" Maximum="{Binding MaximumCustomerAmount}" Margin="0,5,20,5" ValueChanged="AmountOfCustomersChanged"/>
+                    </StackPanel>
+
+                    <Label Content="Selecteer een dag" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14"/>
+                    <DatePicker x:Name="DatePicker" Grid.Row="1" Grid.Column="3" Grid.RowSpan="1" Margin="10,10,10,0" SelectedDateChanged="DateSelected"/>
+                    <xctk:IntegerUpDown x:Name="SpecificDateUpDown" Grid.Row="2" Grid.Column="3" Margin="65,5" Minimum="{Binding MinimumCustomerAmount}" Maximum="{Binding MaximumCustomerAmount}" Visibility="Hidden" ValueChanged="AmountOfCustomersAtDateChanged"/>
+                    <Label x:Name="MessageLabel" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14" Foreground="Red" Visibility="Hidden"/>
+
+                    <Label Content="Weektotaal" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" Padding="0,10,0,0"/>
+                    <Label x:Name="TotalLastWeekLabel" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Padding="0,10,0,0" Content="{Binding TotalAmountOfCustomersLastWeek, ElementName=Window}"/>
+                    <Label x:Name="TotalThisWeekLabel" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Padding="0,10,0,0" Content="{Binding TotalAmountOfCustomersThisWeek, ElementName=Window}"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Name="MonthEditTab" Header="Maand bewerken">
+                <Grid>
+                    <Grid Margin="20">
+                        <Calendar x:Name="MonthPicker" HorizontalAlignment="Left" SelectionMode="None" DisplayModeChanged="DisplayModeChanged" DisplayMode="Year" />
+                    </Grid>
+                    <Grid Name="MonthGrid" Visibility="Hidden">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                        </Grid.RowDefinitions>
+                        <Button Content="Andere maand" Name="SelectDifferentMonthButton" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" Click="SelectDifferentMonth" />
+                        <Label x:Name="MonthInYearLabel" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                        <Label Content="maandag" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center"/>
+                        <Label Content="dinsdag" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center"/>
+                        <Label Content="woensdag" Grid.Row="1" Grid.Column="2" HorizontalContentAlignment="Center"/>
+                        <Label Content="donderdag" Grid.Row="1" Grid.Column="3" HorizontalContentAlignment="Center"/>
+                        <Label Content="vrijdag" Grid.Row="1" Grid.Column="4" HorizontalContentAlignment="Center"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="OverviewTab">
+                <TabItem.Header>
+                    <Label Content="Overzicht"/>
+                </TabItem.Header>
+                <Grid Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" Content="januari"/>
+                    <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" Content="februari"/>
+                    <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" Content="maart"/>
+                    <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" Content="april"/>
+                    <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" Content="mei"/>
+                    <Label Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" Content="juni"/>
+                    <Label Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" Content="juli"/>
+                    <Label Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" Content="augustus"/>
+                    <Label Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" Content="september"/>
+                    <Label Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" Content="oktober"/>
+                    <Label Grid.Row="11" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" Content="november"/>
+                    <Label Grid.Row="12" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" Content="december"/>
+                    <Label Grid.Row="13" Grid.Column="0" HorizontalAlignment="Center" FontSize="14" Content="Totaal"/>
+                    <Label Grid.Row="14" Margin="0,10,0,0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="14" Content="Verschil t.o.v. zelfde datum" />
+                    <Label x:Name="AverageToGoLabel" Grid.Row="15" Margin="0,10,0,0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="14" Content="Keuringen per dag" />
+
+                    <Label x:Name="CurrentYearLabel" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold"  FontSize="14"/>
+                    <Label x:Name="TotalJanLabel" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersJan, ElementName=Window}"/>
+                    <Label x:Name="TotalFebLabel" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersFeb, ElementName=Window}"/>
+                    <Label x:Name="TotalMarLabel" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersMar, ElementName=Window}"/>
+                    <Label x:Name="TotalAprLabel" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersApr, ElementName=Window}"/>
+                    <Label x:Name="TotalMayLabel" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersMay, ElementName=Window}"/>
+                    <Label x:Name="TotalJunLabel" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersJun, ElementName=Window}"/>
+                    <Label x:Name="TotalJulLabel" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersJul, ElementName=Window}"/>
+                    <Label x:Name="TotalAugLabel" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersAug, ElementName=Window}"/>
+                    <Label x:Name="TotalSepLabel" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersSep, ElementName=Window}"/>
+                    <Label x:Name="TotalOctLabel" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersOct, ElementName=Window}"/>
+                    <Label x:Name="TotalNovLabel" Grid.Row="11" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersNov, ElementName=Window}"/>
+                    <Label x:Name="TotalDecLabel" Grid.Row="12" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersDec, ElementName=Window}"/>
+                    <Label x:Name="TotalThisYearLabel" Grid.Row="13" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalAmountOfCustomersThisYear, ElementName=Window}"/>
+
+                    <Label x:Name="LastYearLabel" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold"  FontSize="14"/>
+                    <Label x:Name="TotalPreviousJanLabel" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersPreviousJan, ElementName=Window}"/>
+                    <Label x:Name="TotalPreviousFebLabel" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersPreviousFeb, ElementName=Window}"/>
+                    <Label x:Name="TotalPreviousMarLabel" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersPreviousMar, ElementName=Window}"/>
+                    <Label x:Name="TotalPreviousAprLabel" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersPreviousApr, ElementName=Window}"/>
+                    <Label x:Name="TotalPreviousMayLabel" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersPreviousMay, ElementName=Window}"/>
+                    <Label x:Name="TotalPreviousJunLabel" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersPreviousJun, ElementName=Window}"/>
+                    <Label x:Name="TotalPreviousJulLabel" Grid.Row="7" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersPreviousJul, ElementName=Window}"/>
+                    <Label x:Name="TotalPreviousAugLabel" Grid.Row="8" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersPreviousAug, ElementName=Window}"/>
+                    <Label x:Name="TotalPreviousSepLabel" Grid.Row="9" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersPreviousSep, ElementName=Window}"/>
+                    <Label x:Name="TotalPreviousOctLabel" Grid.Row="10" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersPreviousOct, ElementName=Window}"/>
+                    <Label x:Name="TotalPreviousNovLabel" Grid.Row="11" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersPreviousNov, ElementName=Window}"/>
+                    <Label x:Name="TotalPreviousDecLabel" Grid.Row="12" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalCustomersPreviousDec, ElementName=Window}"/>
+                    <Label x:Name="TotalPreviousYearLabel" Grid.Row="13" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalAmountOfCustomersLastYear, ElementName=Window}"/>
+
+                    <Label Content="Verschil" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold"  FontSize="14"/>
+                    <Label x:Name="DifferenceJanLabel" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding DifferenceJan, ElementName=Window}" Foreground="{Binding DifferenceJan, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label x:Name="DifferenceFebLabel" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding DifferenceFeb, ElementName=Window}" Foreground="{Binding DifferenceFeb, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label x:Name="DifferenceMarLabel" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding DifferenceMar, ElementName=Window}" Foreground="{Binding DifferenceMar, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label x:Name="DifferenceAprLabel" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding DifferenceApr, ElementName=Window}" Foreground="{Binding DifferenceApr, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label x:Name="DifferenceMayLabel" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding DifferenceMay, ElementName=Window}" Foreground="{Binding DifferenceMay, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label x:Name="DifferenceJunLabel" Grid.Row="6" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding DifferenceJun, ElementName=Window}" Foreground="{Binding DifferenceJun, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label x:Name="DifferenceJulLabel" Grid.Row="7" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding DifferenceJul, ElementName=Window}" Foreground="{Binding DifferenceJul, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label x:Name="DifferenceAugLabel" Grid.Row="8" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding DifferenceAug, ElementName=Window}" Foreground="{Binding DifferenceAug, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label x:Name="DifferenceSepLabel" Grid.Row="9" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding DifferenceSep, ElementName=Window}" Foreground="{Binding DifferenceSep, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label x:Name="DifferenceOctLabel" Grid.Row="10" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding DifferenceOct, ElementName=Window}" Foreground="{Binding DifferenceOct, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label x:Name="DifferenceNovLabel" Grid.Row="11" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding DifferenceNov, ElementName=Window}" Foreground="{Binding DifferenceNov, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label x:Name="DifferenceDecLabel" Grid.Row="12" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding DifferenceDec, ElementName=Window}" Foreground="{Binding DifferenceDec, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label Grid.Row="13" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalDifference, ElementName=Window}" Foreground="{Binding TotalDifference, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label Grid.Row="14" Margin="0,10,0,0" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding TotalDifferenceComparedToDate, ElementName=Window}" Foreground="{Binding TotalDifferenceComparedToDate, ElementName=Window, Converter={StaticResource DifferenceColorConverter}}" />
+                    <Label x:Name="AverageToGoAmountLabel" Grid.Row="15" Margin="0,10,0,0" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Content="{Binding AveragePerDayToGoThisMonth, ElementName=Window}" ContentStringFormat="0.#" />
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="GraphTab">
+                <TabItem.Header>
+                    <Label Content="Jaaroverzicht"/>
+                </TabItem.Header>
+                <Grid Margin="10">
+                    <lvc:CartesianChart x:Name="LineChart" Series="{Binding SeriesCollection}" LegendLocation="Right">
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Klanten" Labels="{Binding Values}" MinValue="0" Foreground="Black" FontSize="14"/>
+                        </lvc:CartesianChart.AxisY>
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Maand" Labels="jan,feb,mrt,apr,mei,jun,jul,aug,sep,okt,nov,dec" Foreground="Black" FontSize="14">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator Step="1"/>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                    </lvc:CartesianChart>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
